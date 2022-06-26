@@ -18,7 +18,7 @@ VIRTUAL_HEIGHT = 200
 -- create array to track generated obstacles
 obstacleList = {}
 
-numOfObstacles = 0
+numOfObstacles = 1
 
 --[[
     Called just once at the beginning of the game; used to set up
@@ -111,14 +111,12 @@ function love.draw()
         love.graphics.printf('Welcome to Doge!', 0, 25, VIRTUAL_WIDTH, 'center')
         love.graphics.printf('Move left and right to dodge the obstacles!', 0, 50, VIRTUAL_WIDTH, 'center')
         love.graphics.printf('Press Enter to begin!', 0, 75, VIRTUAL_WIDTH, 'center')
+    
     elseif gameState == 'start' then
         -- display score 
         displayScore()
         byte:render()
         -- obstacle:render()
-        for _, i in ipairs(obstacleList) do
-            i:draw()
-        end
 
         for _, i in ipairs(obstacleList) do
             i:render()
@@ -164,7 +162,7 @@ function obstacleGeneration()
     -- numOfObstacles = 0
     print('num of obstacles: ')
     print(numOfObstacles)
-    if numOfObstacles == 0 then
+    if numOfObstacles == 1 then
         print("inside of the 0 check for obstacle generation")
 --[[         obstacle = Obstacle(0, -VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
         obstacleList[numOfObstacles] = obstacle ]]
