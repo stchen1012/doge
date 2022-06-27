@@ -76,11 +76,13 @@ function love.update(dt)
 
 
     --obstacle:generateRandom(dt)
-    
-    obstacleGeneration()
+    if gameState == 'start' then
+        obstacleGeneration()
+    end
 
     -- this is to loop through the list of obstacle and update falling speed of obstacle
     for _, i in ipairs(obstacleList) do
+        print('update dt')
         i:update(dt)
     end
 
@@ -119,7 +121,9 @@ function love.draw()
         -- obstacle:render()
 
         for _, i in ipairs(obstacleList) do
+            print('render')
             i:render()
+            print(i.y)
         end
 
 
@@ -171,7 +175,7 @@ function obstacleGeneration()
     else
         print("inside of the else statement obstacle generation")
         if obstacleList[numOfObstacles -1 ].y > obstacleList[numOfObstacles - 1].height + obstacleList[numOfObstacles -1].trailing then
-            obstacleList[numOfObstacles] = Obstacle(0, 0, -VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
+            obstacleList[numOfObstacles] = Obstacle(0, -VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
             --table.insert(obstacleList,Obstacle:new(0, 0, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2))
             numOfObstacles = numOfObstacles + 1
         end

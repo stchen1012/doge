@@ -6,9 +6,9 @@ function Obstacle:init(x, y, width, height)
     self.y = y
     self.width = width
     self.height = height
-    self.dy = 5
+    self.dy = 35
     -- set some spacing between obstacle and Bit to make game playable
-    self.trailing = 3
+    self.trailing = 13
     
     -- avoid method being called recursively
     self:generateRandom()
