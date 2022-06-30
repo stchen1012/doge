@@ -7,6 +7,7 @@ function Obstacle:init(x, y, width, height)
     self.width = width
     self.height = height
     self.dy = 40
+    self.didCountPoint = false
     -- set some spacing between obstacle and Bit to make game playable
     self.trailing = 13
     
