@@ -20,6 +20,15 @@ numOfObstacles = 1
 -- score tracking
 local score = 0
 
+
+-- set up our sound effects; later, we can just index this table and
+-- call each entry's `play` method
+    sounds = {
+        ['move'] = love.audio.newSource('sounds/byte_move.wav', 'static'),
+        ['score'] = love.audio.newSource('sounds/score_point.wav', 'static'),
+        ['collision'] = love.audio.newSource('sounds/collision.wav', 'static')
+    }
+
 --[[
     Called just once at the beginning of the game; used to set up
     game objects, variables, etc. and prepare the game world.
@@ -59,11 +68,13 @@ function love.update(dt)
         byte.y = VIRTUAL_HEIGHT - 50
         byte.width = VIRTUAL_WIDTH / 2
         byte.height = VIRTUAL_HEIGHT / 2
+        sounds['move']:play()
     elseif love.keyboard.isDown('right') and byte.x == 0 then
         byte.x = byte.x + VIRTUAL_WIDTH / 2
         byte.y = VIRTUAL_HEIGHT - 50
         byte.width = VIRTUAL_WIDTH / 2
         byte.height = VIRTUAL_HEIGHT / 2
+        sounds['move']:play()
     end
 
     if gameState == 'start' then
@@ -73,10 +84,12 @@ function love.update(dt)
             i:update(dt)        
     
             if i.y > VIRTUAL_HEIGHT and i.didCountPoint == false then
+                sounds['score']:play()
                 score = score + 1
                 i.didCountPoint = true
                 return score
             elseif byte:collides(i) == true then
+                sounds['collision']:play()
                 gameState = 'done'
             end
         end
