@@ -37,8 +37,6 @@ function love.load()
     love.window.setTitle('Doge')
 
     smallFont = love.graphics.newFont('font.ttf', 8)
-    scoreFont = love.graphics.newFont('font.ttf', 12)
-
     love.graphics.setFont(smallFont)
 
 
@@ -61,14 +59,13 @@ end
 
 
 function love.update(dt)
-       -- regardless of state
-       if love.keyboard.isDown('left') and byte.x > 0 then
+    -- regardless of state
+    if love.keyboard.isDown('left') and byte.x > 0 then
         -- byte is on the left side and needs to be moved to the right
         byte.x = 0
         byte.y = VIRTUAL_HEIGHT - 50
         byte.width = VIRTUAL_WIDTH / 2
         byte.height = VIRTUAL_HEIGHT / 2
-        
     elseif love.keyboard.isDown('right') and byte.x == 0 then
         byte.x = byte.x + VIRTUAL_WIDTH / 2
         byte.y = VIRTUAL_HEIGHT - 50
@@ -76,38 +73,23 @@ function love.update(dt)
         byte.height = VIRTUAL_HEIGHT / 2
     end
 
-
-
-    --obstacle:generateRandom(dt)
     if gameState == 'start' then
         obstacleGeneration()
-    
+        -- this is to loop through the list of obstacles and update falling speed of obstacle
         for _, i in ipairs(obstacleList) do
-            -- print('update dt')
             i:update(dt)        
     
             if i.y > VIRTUAL_HEIGHT and i.didCountPoint == false then
                 score = score + 1
                 i.didCountPoint = true
-                print("I y")
-                print(i.y)
-                print(score)
                 return score
             end
     
             if byte:collides(i) == true then
                 gameState = 'done'
             end
-
-
         end
-    
     end
-
-    -- this is to loop through the list of obstacle and update falling speed of obstacle
-    
-
-
 end 
 
 function love.keypressed(key)
@@ -125,10 +107,6 @@ function love.draw()
 
     -- begin drawing with push, in our virtual resolution
     push:start()
- 
-    -- display FPS for debugging; simply comment out to remove
-    -- displayFPS()
-
 
     -- before starting game
     if gameState == 'welcome' then
@@ -136,41 +114,20 @@ function love.draw()
         love.graphics.printf('Welcome to Doge!', 0, 25, VIRTUAL_WIDTH, 'center')
         love.graphics.printf('Move left and right to dodge the obstacles!', 0, 50, VIRTUAL_WIDTH, 'center')
         love.graphics.printf('Press Enter to begin!', 0, 75, VIRTUAL_WIDTH, 'center')
-    
-    elseif gameState == 'start' then
-        -- display score 
+    elseif gameState == 'start' then 
         displayScore()
         byte:render()
-        -- obstacle:render()
-
         for _, i in ipairs(obstacleList) do
-            --print('render')
             i:render()
         end
-
     elseif gameState == 'done' then
-        --love.graphics.setFont(largeFont)
         love.graphics.setFont(smallFont)
         love.graphics.printf('Score to beat: ' .. tostring(score), 0, 30, VIRTUAL_WIDTH, 'center')
-        --love.graphics.printf('Try to beat your score of ' .. tostring(displayScore) '..', 0, 10, VIRTUAL_WIDTH, 'center')   
         love.graphics.setFont(smallFont)
         love.graphics.printf('Press Enter to restart!', 0, 50, VIRTUAL_WIDTH, 'center')
     end
-    push:finish()
     
-end
-
-
-
---[[
-    Renders the current FPS.
-]]
-function displayFPS()
-    -- simple FPS display across all states
-    love.graphics.setFont(smallFont)
-    love.graphics.setColor(0, 255/255, 0, 255/255)
-    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 10, 10)
-    love.graphics.setColor(255, 255, 255, 255)
+    push:finish()
 end
 
 
@@ -178,28 +135,18 @@ function displayScore()
     love.graphics.setFont(smallFont)
     love.graphics.setColor(0, 255/255, 0, 255/255)
     love.graphics.print('Score: ' .. tostring(score))
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(255, 255, 255, 140/255)
 end
 
 function obstacleGeneration()
-    -- check for location of y before deploying new obstacle
-    -- numOfObstacles = 0
-    -- print('num of obstacles: ')
-    -- print(numOfObstacles)
     if numOfObstacles == 1 then
-        -- print("inside of the 0 check for obstacle generation")
---[[         obstacle = Obstacle(0, -VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
-        obstacleList[numOfObstacles] = obstacle ]]
         obstacleList[numOfObstacles] = Obstacle(0, -VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
         numOfObstacles = numOfObstacles + 1
     else
-        -- print("inside of the else statement obstacle generation")
         if obstacleList[numOfObstacles -1 ].y > obstacleList[numOfObstacles - 1].height + obstacleList[numOfObstacles -1].trailing then
             obstacleList[numOfObstacles] = Obstacle(0, -VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
             --table.insert(obstacleList,Obstacle:new(0, 0, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2))
             numOfObstacles = numOfObstacles + 1
         end
     end
-    
-    -- reference last position of y in the array to deploy new obstacle
 end

@@ -25,14 +25,6 @@ function Bit:collides(obstacle)
     end
 end
 
---function Bit:scores(obstacle)
---    score = 0
---    if obstacle.y + obstacle.height < self.y and obstacle.x == self.x then
---     score = score + 1
---     return score
---     end
--- end
-
 function Bit:reset()
     self.y = VIRTUAL_HEIGHT - self.y
     self.x = VIRTUAL_HEIGHT - self.x
