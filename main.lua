@@ -82,8 +82,13 @@ function love.update(dt)
 
     -- this is to loop through the list of obstacle and update falling speed of obstacle
     for _, i in ipairs(obstacleList) do
-        print('update dt')
+        -- print('update dt')
         i:update(dt)
+
+        if byte:collides(i) == true then
+            gameState = 'done'
+        end
+
     end
 
 end 
@@ -121,18 +126,19 @@ function love.draw()
         -- obstacle:render()
 
         for _, i in ipairs(obstacleList) do
-            print('render')
+            --print('render')
             i:render()
-            print(i.y)
         end
 
 
+
     elseif gameState == 'done' then
-        love.graphics.setFont(largeFont)
-        love.graphics.printf('Try to beat your score of ' .. tostring(displayScore) '..',
-            0, 10, VIRTUAL_WIDTH, 'center')   
-        love.graphics.setFont(smallFont)
-        love.graphics.printf('Press Enter to restart!', 0, 30, VIRTUAL_WIDTH, 'center')
+        print('game over')
+        --love.graphics.setFont(largeFont)
+        --love.graphics.printf('Try to beat your score of ' .. tostring(displayScore) '..',
+        --    0, 10, VIRTUAL_WIDTH, 'center')   
+        --love.graphics.setFont(smallFont)
+        --love.graphics.printf('Press Enter to restart!', 0, 30, VIRTUAL_WIDTH, 'center')
     end
 
     -- end our drawing to push
@@ -161,19 +167,18 @@ function displayScore()
 end
 
 function obstacleGeneration()
-    print('test')
     -- check for location of y before deploying new obstacle
     -- numOfObstacles = 0
-    print('num of obstacles: ')
-    print(numOfObstacles)
+    -- print('num of obstacles: ')
+    -- print(numOfObstacles)
     if numOfObstacles == 1 then
-        print("inside of the 0 check for obstacle generation")
+        -- print("inside of the 0 check for obstacle generation")
 --[[         obstacle = Obstacle(0, -VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
         obstacleList[numOfObstacles] = obstacle ]]
         obstacleList[numOfObstacles] = Obstacle(0, -VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
         numOfObstacles = numOfObstacles + 1
     else
-        print("inside of the else statement obstacle generation")
+        -- print("inside of the else statement obstacle generation")
         if obstacleList[numOfObstacles -1 ].y > obstacleList[numOfObstacles - 1].height + obstacleList[numOfObstacles -1].trailing then
             obstacleList[numOfObstacles] = Obstacle(0, -VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
             --table.insert(obstacleList,Obstacle:new(0, 0, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2))

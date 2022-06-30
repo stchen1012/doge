@@ -6,7 +6,7 @@ function Obstacle:init(x, y, width, height)
     self.y = y
     self.width = width
     self.height = height
-    self.dy = 35
+    self.dy = 40
     -- set some spacing between obstacle and Bit to make game playable
     self.trailing = 13
     
@@ -22,7 +22,7 @@ function Obstacle:generateRandom()
     -- seed the RNG so that calls to random are always random
     math.randomseed(os.time())
     
-    random_number = math.random(-50,50)
+    random_number = math.random(-10,10)
 
     if random_number < 0 then 
         position = 1

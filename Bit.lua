@@ -20,7 +20,7 @@ end
 function Bit:collides(obstacle)
     -- if y of obstacle is greater than y of the Bit then that means they collides (from top-down)
     -- if x of obstacle is the same as x of the Bit and both objects are occupying the range of y then that means a collision
-    if obstacle.y > self.y and obstacle.x == self.x then
+    if (obstacle.y + obstacle.height > self.y and obstacle.y < VIRTUAL_HEIGHT and obstacle.x == self.x)  then
     return true
     end
 end
