@@ -88,13 +88,15 @@ function love.keypressed(key)
         love.event.quit()
     elseif key == 'enter' or key == 'return' then
         if gameState == 'done' then 
-            gameState = 'welcome'
-            score = 0
-        elseif gameState == 'welcome' then
             gameState = 'start'
             score = 0
             numOfObstacles = 1
             obstacleList = {}
+        elseif gameState == 'welcome' then
+            gameState = 'start'
+            score = 0
+           --numOfObstacles = 1
+           --obstacleList = {}
         end
     end
 end
