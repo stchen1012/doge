@@ -1,11 +1,8 @@
-
-
 push = require 'push'
 Class = require 'class'
 
 require 'Bit'
 require 'Obstacle'
-
 
 --size of our actual window
 WINDOW_WIDTH = 200
@@ -50,11 +47,7 @@ function love.load()
 
     byte = Bit(0, VIRTUAL_HEIGHT - 50, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
     
-
-    --obstacle_random = obstacle:generate_random()
-
     gameState = 'welcome'
-
 end
 
 
@@ -83,9 +76,7 @@ function love.update(dt)
                 score = score + 1
                 i.didCountPoint = true
                 return score
-            end
-    
-            if byte:collides(i) == true then
+            elseif byte:collides(i) == true then
                 gameState = 'done'
             end
         end
@@ -96,8 +87,15 @@ function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
     elseif key == 'enter' or key == 'return' then
-        gameState = 'start'
-        score = 0
+        if gameState == 'done' then 
+            gameState = 'welcome'
+            score = 0
+        elseif gameState == 'welcome' then
+            gameState = 'start'
+            score = 0
+            numOfObstacles = 1
+            obstacleList = {}
+        end
     end
 end
 
@@ -143,10 +141,11 @@ function obstacleGeneration()
         obstacleList[numOfObstacles] = Obstacle(0, -VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
         numOfObstacles = numOfObstacles + 1
     else
-        if obstacleList[numOfObstacles -1 ].y > obstacleList[numOfObstacles - 1].height + obstacleList[numOfObstacles -1].trailing then
+        if obstacleList[numOfObstacles - 1].y > obstacleList[numOfObstacles - 1].height + obstacleList[numOfObstacles -1].trailing then
             obstacleList[numOfObstacles] = Obstacle(0, -VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
             --table.insert(obstacleList,Obstacle:new(0, 0, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2))
             numOfObstacles = numOfObstacles + 1
         end
     end
 end
+
