@@ -6,7 +6,7 @@
 
 ## Table of Contents
 * [Technologies Used](#technologies-used)
-* [Dependencies and Installation](#dependencies-and-installation)
+* [Installation](#dependencies-and-installation)
 
 
 ## Technologies Used
