@@ -1,6 +1,8 @@
 # doge
 #### Super basic retro vertical scrolling game. Try to avoid the obstacles!
 
+![](doge_play.gif)
+
 
 ## Table of Contents
 * [Technologies Used](#technologies-used)
@@ -21,6 +23,4 @@ To run the game, run in the terminal -
 
 for example: 
 /Applications/love.app/Contents/MacOS/love "/Users/tracychen/Desktop/Doge"
-
-![](doge_play.gif)
 
