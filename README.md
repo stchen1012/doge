@@ -1,5 +1,5 @@
 # doge
-#### Super basic retro game vertical scrolling game. Try to avoid the obstacles!
+#### Super basic retro vertical scrolling game. Try to avoid the obstacles!
 
 
 ## Table of Contents
