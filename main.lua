@@ -45,14 +45,12 @@ function love.load()
     smallFont = love.graphics.newFont('font.ttf', 8)
     love.graphics.setFont(smallFont)
 
-
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
         resizable = true,
         vsync = true,
         canvas = false
     })
-
 
     byte = Bit(0, VIRTUAL_HEIGHT - 50, VIRTUAL_WIDTH/2, VIRTUAL_WIDTH/2)
     
@@ -84,6 +82,7 @@ function love.update(dt)
             i:update(dt)        
     
             if i.y > VIRTUAL_HEIGHT and i.didCountPoint == false then
+                print(i.dy)
                 sounds['score']:play()
                 score = score + 1
                 i.didCountPoint = true
@@ -134,10 +133,11 @@ function love.draw()
             i:render()
         end
     elseif gameState == 'done' then
+        love.graphics.setColor(255, 255, 255, 255)
         love.graphics.setFont(smallFont)
-        love.graphics.printf('Score to beat: ' .. tostring(score), 0, 30, VIRTUAL_WIDTH, 'center')
-        love.graphics.setFont(smallFont)
-        love.graphics.printf('Press Enter to restart!', 0, 50, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('Score to beat: ' .. tostring(score), 0, 40, VIRTUAL_WIDTH, 'center')
+        --love.graphics.setFont(smallFont)
+        love.graphics.printf('Press Enter to restart!', 0, 60, VIRTUAL_WIDTH, 'center')
     end
     
     push:finish()
