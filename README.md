@@ -22,3 +22,5 @@ To run the game, run in the terminal -
 for example: 
 /Applications/love.app/Contents/MacOS/love "/Users/tracychen/Desktop/Doge"
 
+![](doge_play.gif)
+
